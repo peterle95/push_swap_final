@@ -277,10 +277,15 @@ static void	initStack(t_list **stack, int argc, char **argv)
 	while (args[i])
 	{
 		new = ft_lstnew(ft_atoi(args[i]));
+		/*For each argument, it creates a new node using ft_lstnew, 
+		passing the converted integer value obtained by 
+		calling ft_atoi on the argument string.*/
 		ft_lstadd_back(stack, new);
+		/*It adds the new node to the back of the stack using ft_lstadd_back.*/
 		i++;
 	}
 	index_stack(stack);
+	/*Gives indexes to the elements of the stack*/
 	if (argc == 2)
 		ft_free(args);
 }
@@ -357,6 +362,10 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 	head_a = *stack_a;
 	size = ft_lstsize(head_a);
 	max_bits = get_max_bits(stack_a);
+	/*It calls the get_max_bits function 
+	to determine the maximum number of bits required to 
+	represent the largest value in stack_a 
+	and stores it in max_bits.*/
 	while (i < max_bits)
 	{
 		j = 0;
@@ -365,11 +374,16 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 			head_a = *stack_a;
 			if (((head_a->index >> i) & 1) == 1)
 				ra(stack_a);
+				/*If the i-th bit is 1, it rotates stack_a to the right using ra.*/
 			else
 				pb(stack_a, stack_b);
+				/*If the i-th bit is 0, it pushes the element 
+				from stack_a to stack_b using pb.*/
 		}
 		while (ft_lstsize(*stack_b) != 0)
 			pa(stack_a, stack_b);
+		/*After the inner loop, it enters another loop that 
+		continues as long as stack_b is not empty.*/
 		i++;
 	}
 }
@@ -389,6 +403,9 @@ static int	get_min(t_list **stack, int val)
 	{
 		head = head->next;
 		if ((head->index < min) && head->index != val)
+		/*It checks if the index value of the current node 
+		pointed to by head is less than the current minimum index 
+		value stored in min and the index value is not equal to val.*/
 			min = head->index;
 	}
 	return (min);
@@ -402,27 +419,33 @@ static void	sort_3(t_list **stack_a)
 
 	head = *stack_a;
 	min = get_min(stack_a, -1);
+	/*It calls the get_min function to find the minimum value 
+	in the stack and stores it in min.*/
 	next_min = get_min(stack_a, min);
 	if (is_sorted(stack_a))
 		return ;
-	if (head->index == min && head->next->index != next_min)
+	if (head->index == min && head->next->index != next_min) // 1 3 2
+	/*It checks if the first element's index is equal to min 
+	and the second element's index is not equal to next_min.
+	es: 1 3 2*/
 	{
 		ra(stack_a);
 		sa(stack_a);
 		rra(stack_a);
 	}
 	else if (head->index == next_min)
+	/*2 1 3*/
 	{
-		if (head->next->index == min)
+		if (head->next->index == min) // 2 1 3
 			sa(stack_a);
-		else
+		else                         // 2 3 1
 			rra(stack_a);
 	}
 	else
 	{
-		if (head->next->index == min)
+		if (head->next->index == min) // 3 1 2
 			ra(stack_a);
-		else
+		else                          // 3 2 1
 		{
 			sa(stack_a);
 			rra(stack_a);
@@ -437,6 +460,10 @@ static void	sort_4(t_list **stack_a, t_list **stack_b)
 	if (is_sorted(stack_a))
 		return ;
 	distance = get_distance(stack_a, get_min(stack_a, -1));
+	/*It calls the get_min function to find the minimum value in stack_a, 
+	excluding -1, and stores the result in min.
+	It calls the get_distance function to find the distance of the minimum 
+	value from the top of stack_a and stores the result in distance.*/
 	if (distance == 1)
 		ra(stack_a);
 	else if (distance == 2)
@@ -447,6 +474,8 @@ static void	sort_4(t_list **stack_a, t_list **stack_b)
 	else if (distance == 3)
 		rra(stack_a);
 	if (is_sorted(stack_a))
+	/*It checks again if the stack stack_a is sorted after the previous 
+	operations. If the stack is sorted, it returns from the function.*/
 		return ;
 	pb(stack_a, stack_b);
 	sort_3(stack_a);
@@ -578,6 +607,9 @@ static t_list	*get_next_min(t_list **stack)
 		while (head)
 		{
 			if ((head->index == -1) && (!has_min || head->value < min->value))
+			/*Inside the loop, it checks if the current node's index is -1 
+			(unindexed) and either has_min is 0 or the current node's value 
+			is less than min->value.*/
 			{
 				min = head;
 				has_min = 1;
@@ -600,6 +632,11 @@ void	index_stack(t_list **stack)
 		head->index = index++;
 		head = get_next_min(stack);
 	}
+	/*The index_stack function iterates through the stack, 
+	assigning indices to the nodes in ascending order of their values 
+	using the get_next_min function to find the next 
+	unindexed node with the minimum value.
+*/
 }
 
 // T_LIST.C
@@ -634,10 +671,14 @@ t_list	*ft_lstlast(t_list *head)
 
 	tmp = head;
 	while (tmp->next)
+	/*It enters a loop that 
+	continues as long as tmp->next is not NULL (i.e., there is a next node).*/
 	{
 		tmp = tmp->next;
 		if (tmp->next == NULL)
 			return (tmp);
+			/*After the loop, it checks if tmp->next is NULL, indicating that 
+			tmp is pointing to the last node. If so, it returns tmp.*/
 	}
 	return (tmp);
 }
@@ -646,18 +687,31 @@ t_list	*ft_lstlast(t_list *head)
 void	ft_lstadd_back(t_list **stack, t_list *new)
 {
 	t_list	*n;
+	/*It declares a pointer n of type t_list to temporarily hold a node.*/
 
 	if (*stack)
+	/*It checks if the list is not empty (i.e., *stack is not NULL).*/
 	{
 		n = ft_lstlast(*stack);
+		/*If the list is not empty, it calls the ft_lstlast function to 
+		get a pointer to the last node in the list and assigns it to n.*/
 		n->next = new;
 		new->next = NULL;
 	}
 	else
 	{
 		*stack = new;
+		/*If the list is empty (i.e., *stack is NULL), it assigns the new 
+		node (new) to the head of the list (*stack).*/
 		(*stack)->next = NULL;
+		/*It sets the next pointer of the new node ((*stack)->next) to 
+		NULL, indicating that it is the only node in the list.*/
 	}
+	/*In summary, the ft_lstadd_back function adds a new node to the end 
+	of a linked list represented by the t_list structure. 
+	If the list is empty, it sets the new node as the head 
+	of the list. If the list is not empty, it finds the last 
+	node and appends the new node to it*/
 }
 
 // Returns the size of the Linked List
@@ -726,6 +780,8 @@ int	is_sorted(t_list **stack)
 }
 
 int	get_distance(t_list **stack, int index)
+/*The get_distance function is used to find the distance 
+of a node with a specific index value from the top of a stack.*/
 {
 	t_list	*head;
 	int		distance;
@@ -740,6 +796,10 @@ int	get_distance(t_list **stack, int index)
 		head = head->next;
 	}
 	return (distance);
+	/*In summary, the get_distance function iterates through a stack, 
+	starting from the top, and counts the number of nodes until it 
+	reaches the node with the lowest index value. It returns 
+	the distance of that node from the top of the stack.*/
 }
 
 void	make_top(t_list **stack, int distance)

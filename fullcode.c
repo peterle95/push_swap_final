@@ -249,7 +249,7 @@ int	rrr(t_list **stack_a, t_list **stack_b)
 {
 	if ((ft_lstsize(*stack_a) < 2) || (ft_lstsize(*stack_b) < 2))
 		return (-1);
-	reverseRotate(stack_a);
+	reverseRotate(stack_a); 
 	reverseRotate(stack_b);
 	ft_putendl_fd("rrr", 1);
 	return (0);

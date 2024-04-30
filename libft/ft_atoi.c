@@ -3,36 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 19:57:00 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/02/02 19:32:45 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:04:31 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/26 13:00:12 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include <stdio.h>
 #include "libft.h"
 
-long	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long	i;
-	long	number;
-	int		sign;
+	int	num;
+	int	sign;
 
-	i = 0;
-	number = 0;
+	num = 0;
 	sign = 1;
-	while (str[i] && (str[i] == 32 || (str[i] >= 9 && str[i] <= 13)))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == 43 || *str == 45)
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
+		if (*str == 45)
+			sign *= -1;
+		str++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (*str >= 48 && *str <= 57)
 	{
-		number = (number * 10) + (str[i] - '0');
-		i++;
+		num = num * 10 + (*str - '0');
+		str++;
 	}
-	return (number * sign);
+	return (num * sign);
 }
+
+// int	main(void)
+//  {
+//      char *x = " ---+--+33344";
+//      printf("%d", ft_atoi(x));
+//  }

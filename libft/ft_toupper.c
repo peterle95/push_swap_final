@@ -3,19 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 21:02:42 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/06/30 17:38:27 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:02:48 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/23 12:26:36 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+// #include <stdio.h>
 
 int	ft_toupper(int c)
 {
-	if (c >= 'a' && c <= 'z')
-		return (c - 32);
-	else
-		return (c);
+	if (c >= 97 && c <= 122)
+		c -= 32;
+	return (c);
 }
+
+/*int main()
+{
+  char c;
+
+  printf("Enter a lowercase character: ");
+  scanf("%c", &c);
+
+  if (ft_toupper(c)) {
+    printf("%c is a lowercase character.\n", c);
+  } else {
+    printf("%c (input is not lowercase character).\n", c);
+  }
+
+  return 0;
+}*/

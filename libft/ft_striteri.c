@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 12:16:27 by pmolzer           #+#    #+#             */
-/*   Updated: 2023/11/22 12:32:13 by pmolzer          ###   ########.fr       */
+/*   Created: 2023/11/13 12:15:11 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/22 12:42:11 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 	DESCRIPTION :
-	The function ft_putstr_fd writes the given string to the given
-	file descriptor.
+	The function ft_striteri applies the given function f to each
+	character in the given string s.
 
 	RETURN VALUE :
 	None.
@@ -21,24 +21,35 @@
 
 #include "libft.h"
 // #include <stdio.h>
+// #include <stdlib.h>
 
-void	ft_putstr_fd(char *s, int fd)
+/*void to_upper(unsigned int i, char* c)
 {
-	if (!s)
+    *c = toupper(*c);
+}*/
+
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+{
+	int	i;
+
+	if (!s || !f)
 		return ;
-	while (*s != '\0')
+	i = 0;
+	while (s[i])
 	{
-		ft_putchar_fd(*s, fd);
-		s++;
+		(*f)(i, &s[i]);
+		i++;
 	}
 }
 
-/*int main()
+/*int main(int argc, char** argv)
 {
-	char *str = "Hello, world!";
-	int fd = 1; // Standard output file descriptor
+	char str[100];
 
-	ft_putstr_fd(str, fd);
+	printf("Enter a string: ");
+	scanf("%s", str);
+
+	ft_striteri(str, toupper);
 
 	return 0;
 }*/

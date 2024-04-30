@@ -3,52 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 20:24:39 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/06/30 17:13:00 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:12:46 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/22 12:26:26 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+DESCRIPTION :
+The function ft_itoa converts the integer n into a string of characters.
+
+RESULT VALUE :
+The string of the converted integer.
+*/
+
 #include "libft.h"
+// #include <stdio.h>
 
-static int	ft_dc(int n)
+static size_t	ft_itoa_len(long num)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	if (n < 0 || n == 0)
-		i++;
-	while (n)
+	len = 0;
+	if (num == 0)
+		return (1);
+	if (num < 0)
 	{
-		n /= 10;
-		i++;
+		len++;
+		num = -num;
 	}
-	return (i + 1);
+	while (num >= 1)
+	{
+		len++;
+		num /= 10;
+	}
+	return (len);
+}
+
+static char	*ft_num_to_str(long num, char *str, size_t len)
+{
+	str = ft_calloc(len + 1, sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	if (num < 0)
+	{
+		str[0] = '-';
+		num = -num;
+	}
+	len--;
+	while (len)
+	{
+		str[len] = (num % 10) + '0';
+		num /= 10;
+		len--;
+	}
+	if (str[0] != '-')
+		str[0] = (num % 10) + '0';
+	return (str);
 }
 
 char	*ft_itoa(int n)
 {
-	int				n1;
-	unsigned int	n2;
-	int				i;
-	char			*d;
+	long	num;
+	size_t	len;
+	char	*str;
 
-	i = ft_dc(n);
-	n1 = 0;
-	n2 = n;
-	d = malloc(i);
-	d[--i] = '\0';
-	if (n < 0)
-	{
-		n2 = n * -1;
-		d[n1] = '-';
-		n1++;
-	}
-	while (n1 < i--)
-	{
-		d[i] = n2 % 10 + '0';
-		n2 /= 10;
-	}
-	return (d);
+	num = n;
+	len = ft_itoa_len(num);
+	str = 0;
+	str = ft_num_to_str(num, str, len);
+	if (!str)
+		return (NULL);
+	return (str);
 }
+
+/*int main()
+{
+	int n;
+	char *str;
+
+	printf("Enter an integer: ");
+	scanf("%d", &n);
+
+	str = ft_itoa(n);
+	if (!str)
+	{
+		printf("Error: Unable to convert integer to string.\n");
+		return (1);
+	}
+
+	printf("The integer %d converted to a string is: %s\n", n, str);
+	free(str);
+
+	return (0);
+}*/

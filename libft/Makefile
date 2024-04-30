@@ -1,42 +1,70 @@
-# ************************************************************************** #
-#                                                                            #
-#                                                        :::      ::::::::   #
-#   Makefile                                           :+:      :+:    :+:   #
-#                                                    +:+ +:+         +:+     #
-#   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        #
-#                                                +#+#+#+#+#+   +#+           #
-#   Created: 2021/07/09 18:33:22 by shovsepy          #+#    #+#             #
-#   Updated: 2021/07/09 18:33:23 by shovsepy         ###   ########.fr       #
-#                                                                            #
-# ************************************************************************** #
 
-NAME		= libft.a
 
-SRCS		= $(shell find "." -name "*.c")
+NAME = libft.a
+CC = cc
+CFLAGS = -Wall -Werror -Wextra 
+AR = ar rcs
+RM = rm -f
+SRC = ft_isalpha \
+	ft_isdigit \
+	ft_isalnum \
+	ft_isascii \
+	ft_isprint \
+	ft_strlen \
+	ft_memset \
+	ft_bzero \
+	ft_memcpy \
+	ft_memmove \
+	ft_strlcpy \
+	ft_strlcat \
+	ft_toupper \
+	ft_tolower \
+	ft_strchr \
+	ft_strrchr \
+	ft_strncmp \
+	ft_split \
+	ft_memchr \
+	ft_memcmp \
+	ft_strnstr \
+	ft_atoi \
+	ft_calloc \
+	ft_strdup \
+	ft_substr \
+	ft_strjoin \
+	ft_strtrim \
+	ft_itoa \
+	ft_strmapi \
+	ft_striteri \
+	ft_putchar_fd \
+	ft_putstr_fd \
+	ft_putendl_fd \
+	ft_putnbr_fd \
+	ft_printf			    \
+	ft_putchar_printf		\
+	ft_putstr_printf		\
+	ft_putnbr_printf		\
+	ft_putuint_printf		\
+	ft_puthex_printf		\
+	ft_putptr_printf		\
+	ft_aux_printf			\
 
-OBJS		= ${SRCS:.c=.o}
-BONUS_OBJS 	= ${BONUSES:.c=.o}
+SRCS = $(addsuffix .c, $(SRC))
+OBJS = $(addsuffix .o, $(SRC))
 
-CC		= gcc
-RM		= rm -rf
-CFLAGS		= -Wall -Wextra -Werror
-AR		= ar csr
+.c.o: $(SRCS) 
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-.c.o :
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+$(NAME): $(OBJS)
+	$(AR) $@ $^
 
-all : ${NAME}
+all: $(NAME)
 
-$(NAME) : ${OBJS}
-	@${AR} libft.a ${OBJS}
+clean:
+	$(RM) $(OBJS)
 
-clean :
-	@${RM} ${OBJS} ${BONUS_OBJS}
+fclean: clean
+	$(RM) $(NAME)
 
-fclean : clean
-	@${RM} ${NAME}
+re: clean all
 
-re : fclean all
-
-.PHONY: all clean fclean re .c.o
-
+.PHONY: 	all clean fclean re

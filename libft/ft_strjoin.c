@@ -3,28 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 20:49:48 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/02/02 19:11:17 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:12:03 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/28 11:58:44 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+	DESCRIPTION :
+	The function ft_strjoin concatenates the given strings s1 and s2
+	and allocates sufficient memory for the newly created string.
+
+	RETURN VALUE :
+	A pointer to the new concatenated string.
+	NULL if the memory allocation fails.
+*/
+
 #include "libft.h"
+// #include <stdio.h>
 
-char	*ft_strjoin(const char *str1, const char *str2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*new_str;
-	int		str1_len;
-	int		str2_len;
-	int		new_len;
+	char	*s;
+	size_t	len;
+	int		i;
 
-	str1_len = ft_strlen(str1);
-	str2_len = ft_strlen(str2);
-	new_len = str1_len + str2_len + 1;
-	new_str = malloc(new_len);
-	ft_memmove(new_str, str1, str1_len);
-	ft_memmove((new_str + str1_len), str2, str2_len);
-	new_str[new_len - 1] = '\0';
-	return (new_str);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	s = ft_calloc(len + 1, sizeof(char));
+	if (!s)
+		return (NULL);
+	len = 0;
+	while (s1[len])
+	{
+		s[len] = s1[len];
+		len++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		s[len + i] = s2[i];
+		i++;
+	}
+	return (s);
 }
+
+/*int main()
+{
+	char *s1 = "Hello";
+	char *s2 = "World";
+
+	char *joined_string = ft_strjoin(s1, s2);
+
+	if (joined_string) {
+		printf("Joined string: %s\n", joined_string);
+		free(joined_string); // Free the allocated memory when done
+	} else {
+		printf("Error: Memory allocation failed\n");
+	}
+
+	return 0;
+}*/

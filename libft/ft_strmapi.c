@@ -3,33 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 20:56:30 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/06/30 17:26:35 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:13:06 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/22 12:48:23 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+	DESRIPTION :
+	The function ft_strmapi applies the given function f to each character
+	in the given string s and allocates sufficient memory to store the
+	resulting new string. 
+
+	RETURN VALUE :
+	A pointer to the newly created string. NULL if the memory allocation
+	fails.	
+*/
+
 #include "libft.h"
+// #include <stdio.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*st;
-	int		i;
-	int		size;
+	char			*str;
+	unsigned int	i;
 
-	i = 0;
-	size = ft_strlen(s);
-	if (s == NULL)
+	if (!s || (!s && !f))
+		return (ft_strdup(""));
+	else if (!f)
+		return (ft_strdup(s));
+	str = ft_strdup(s);
+	if (!str)
 		return (NULL);
-	st = malloc(size + 1);
-	if (!st)
-		return (0);
-	ft_strlcpy(st, s, size + 1);
-	while (i < size)
+	i = 0;
+	while (s[i])
 	{
-		st[i] = (*f)(i, st[i]);
+		str[i] = (*f)(i, s[i]);
 		i++;
 	}
-	return (st);
+	return (str);
 }
+
+/* int main(void)
+{
+    char *str = "This project is great!";
+    char (*f)(unsigned int, char) = ft_toupper;
+
+    char *new_str = ft_strmapi(str, f);
+    if (!new_str)
+    {
+        return 1;
+    }
+
+    printf("%s\n", new_str);
+
+    free(new_str);
+
+    return 0;
+}*/

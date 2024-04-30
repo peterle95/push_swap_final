@@ -407,7 +407,7 @@ static int	get_min(t_list **stack, int val)
 		pointed to by head is less than the current minimum index 
 		value stored in min and the index value is not equal to val.*/
 			min = head->index;
-	}
+	} 
 	return (min);
 }
 

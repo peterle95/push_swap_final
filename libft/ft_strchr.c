@@ -3,32 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 20:48:27 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/06/30 17:23:41 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:03:09 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/22 12:35:17 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+	DESCRIPTION :
+	The function ft_strchr finds the first occurence of character c in
+	string str.
+
+	RETURN VALUE :
+	A pointer to the first occurence of c in str.
+	NULL if c is not found.
+*/
+
 #include "libft.h"
+// #include <stdio.h>
+// #include <string.h>
 
 char	*ft_strchr(const char *str, int c)
 {
-	char	*letter;
-	int		i;
+	int				i;
+	unsigned char	ch;
 
-	letter = 0;
 	i = 0;
+	ch = c;
+	if (ch == '\0')
+	{
+		i = ft_strlen(str);
+		return ((char *)str + i++);
+	}
 	while (str[i])
 	{
-		if (str[i] == c)
-		{
-			letter = (char *)(str + i);
-			return (letter);
-		}
+		if (str[i] == ch)
+			return ((char *)str + i);
 		i++;
 	}
-	if (str[i] == c)
-		return ((char *)(str + i));
 	return (NULL);
 }
+
+/*int main()
+{
+	char str[] = "Hello, world!";
+	char c = 'l';
+	char *ptr = ft_strchr(str, c);
+
+	if (ptr)
+		printf("The character '%c' is found
+	       	at position %ld in the string \"%s\".\n", c, ptr - str, str);
+	else
+		printf("The character '%c' is not found in the string \"%s\".\n", c, str);
+
+	return 0;
+}*/

@@ -6,7 +6,7 @@
 /*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 21:14:45 by pmolzer           #+#    #+#             */
-/*   Updated: 2024/04/26 21:14:45 by pmolzer          ###   ########.fr       */
+/*   Updated: 2024/04/30 17:08:52 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ void	index_stack(t_list **stack)
 		head = get_next_min(stack);
 	}
 }
-

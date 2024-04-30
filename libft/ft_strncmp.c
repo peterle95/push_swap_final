@@ -1,25 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 20:58:05 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/01/28 20:58:06 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:03:32 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/13 12:03:33 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+/*
+	DESCRIPTION :
+	The function ft_strncmp compares the first n bytes of the given strings
+	s1 and s2.
 
-int	ft_strncmp(const char *str1, const char *str2, size_t len)
+	RETURN VALUE :
+	An integer less than, equal to, or greater than zero if one of the first
+	n bytes of s1 is found to be less than, to match, or to be greater than 
+	s2.
+*/
+
+#include "libft.h"
+// #include <stdio.h>
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	if (len == 0)
+	if (n == 0)
 		return (0);
-	while (i < len - 1 && str1[i] && str2[i] && str1[i] == str2[i])
+	while ((s1[i] != '\0' && s2[i] != '\0')
+		&& (i < n - 1) && s1[i] == s2[i])
 		i++;
-	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
+/*int main()
+{
+	char s1[] = "Hello";
+	char s2[] = "World";
+	size_t n = 5;
+
+	int result = ft_strncmp(s1, s2, n);
+
+	if (result < 0) {
+		printf("s1 is less than s2\n");
+	} else if (result > 0) {
+		printf("s1 is greater than s2\n");
+	} else {
+		printf("s1 is equal to s2\n");
+	}
+
+	return 0;
+}*/

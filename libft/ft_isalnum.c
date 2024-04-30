@@ -3,17 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shovsepy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 20:14:46 by shovsepy          #+#    #+#             */
-/*   Updated: 2021/06/30 17:09:54 by shovsepy         ###   ########.fr       */
+/*   Created: 2023/11/13 12:00:05 by pmolzer           #+#    #+#             */
+/*   Updated: 2023/11/22 12:21:09 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+// #include <stdio.h>
 
 int	ft_isalnum(int c)
 {
-	return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'));
+	if (c >= '0' && c <= '9')
+		return (c);
+	else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (c);
+	else
+		return (0);
 }
+
+/* int main() {
+    char c;
+
+    printf("Enter a character: ");
+    scanf("%c", &c); 
+
+    if (ft_isalnum(c)) {
+        printf("%c is an alphanumeric character.\n", c);
+    } else {
+        printf("%c is not an alphanumeric character.\n", c);
+    }
+
+    return (0);
+}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmolzer <pmolzer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pmolzer <pmolzer@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 16:37:58 by pmolzer           #+#    #+#             */
-/*   Updated: 2024/04/30 16:58:53 by pmolzer          ###   ########.fr       */
+/*   Updated: 2024/04/30 21:39:22 by pmolzer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	first_min(t_list **stack_a)
 	rra(stack_a);
 }
 
-static void	first_next_min(t_list **stack_a)
+static void	descending(t_list **stack_a)
 {
 	sa(stack_a);
 	rra(stack_a);
@@ -50,6 +50,6 @@ void	sort_3(t_list **stack_a)
 		if (head->next->index == min)
 			ra(stack_a);
 		else
-			first_next_min(stack_a);
+			descending(stack_a);
 	}
 }

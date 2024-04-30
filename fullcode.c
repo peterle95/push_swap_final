@@ -434,7 +434,6 @@ static void	sort_3(t_list **stack_a)
 		rra(stack_a);
 	}
 	else if (head->index == next_min)
-	/*2 1 3*/
 	{
 		if (head->next->index == min) // 2 1 3
 			sa(stack_a);

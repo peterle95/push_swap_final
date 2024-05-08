@@ -11,6 +11,9 @@ typedef struct s_list
 	int				value;
 	int				index;
 	struct s_list	*next;
+	/*So, the next field is not a struct inside a struct, 
+	but rather a pointer that connects the t_list 
+	structs to form a linked list data structure.*/
 }				t_list;
 
 /*In the context of your sorting algorithm project, this t_list structure is 
@@ -329,7 +332,10 @@ int	main(int argc, char **argv)
 // RADIX.C
 
 #include "push_swap.h"
-
+/*The get_max_bits function is used to determine the maximum number of
+ bits required to represent the largest value in the stack stack. 
+ This information is crucial for the radix_sort function, which sorts 
+ the elements in the stack based on their digits.*/
 static int	get_max_bits(t_list **stack)
 {
 	t_list	*head;
@@ -387,6 +393,31 @@ void	radix_sort(t_list **stack_a, t_list **stack_b)
 		i++;
 	}
 }
+
+/*Suppose we have a stack stack_a with the following values:.
+The get_max_bits function determines that the maximum number of bits 
+required to represent the largest value (7) is 3 bits.
+The outer loop in radix_sort runs 3 times, as max_bits is 3.
+In the first iteration (when i is 0):
+The inner loop checks the 0th bit (least significant bit) of each element's index.
+For the element with value 4, the 0th bit is 0, so it is pushed to stack_b.
+For the element with value 5, the 0th bit is 1, so it is rotated to the top of stack_a.
+This process continues for all the elements in stack_a.
+After the inner loop, all the elements with the 0th bit set to 0 are in stack_b, 
+and the remaining elements are in stack_a.
+The elements in stack_b are then pushed back to stack_a using pa.
+In the second iteration (when i is 1):
+The inner loop checks the 1st bit of each element's index.
+The process is similar to the first iteration, but this time, 
+the elements are sorted based on the 1st bit.
+In the third iteration (when i is 2):
+The inner loop checks the 2nd bit of each element's index.
+The process is similar to the previous iterations, but this time, 
+the elements are sorted based on the 2nd bit.
+After the three iterations, the elements in stack_a will be sorted in ascending order:.
+The bitshifting operation is used to isolate the bits at the current 
+digit position, allowing the radix sort algorithm to sort the elements based on 
+their digits, starting from the least significant digit.*/
 
 // SIMPLE.C
 
